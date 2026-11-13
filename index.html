@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101326">
+<title>QUIZVERSE | Think. Play. Compete.</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#0d1020;--panel:#171b32;--panel2:#202642;--text:#f5f6ff;--muted:#aeb5d1;--purple:#9274ff;--pink:#ff6db5;--green:#54dfad;--gold:#ffd36e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#30235c 0,transparent 34%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}
+header{max-width:1050px;margin:auto;padding:22px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:900;letter-spacing:1.5px;font-size:22px}.brand span{color:var(--purple)}.pill{border:1px solid #424969;border-radius:99px;padding:8px 12px;color:var(--muted);font-size:12px}
+main{max-width:1050px;margin:auto;padding:10px 18px 50px}.hero{padding:34px 26px;border-radius:26px;background:linear-gradient(120deg,#29214f,#202c51 65%,#3a2250);border:1px solid #51447f;position:relative;overflow:hidden}
+.hero:after{content:"✦";position:absolute;right:35px;top:15px;font-size:100px;color:#ffffff12}
+.eyebrow{color:#d2c7ff;font-size:12px;font-weight:800;letter-spacing:2px}.hero h1{font-size:clamp(34px,7vw,58px);line-height:1.02;margin:12px 0}.hero p{color:#d5d7ec;max-width:560px;line-height:1.6}.button{border:0;border-radius:13px;padding:13px 18px;background:linear-gradient(100deg,var(--purple),#b56bff);color:white;font-weight:800;font-size:14px;cursor:pointer}.button.secondary{background:#303958;border:1px solid #4a5274}.button:disabled{opacity:.45;cursor:not-allowed}.button,.answer,.category{transition:transform .12s ease,border-color .12s ease,opacity .12s ease;touch-action:manipulation}.button:active,.answer:active,.category:active{transform:scale(.985)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.stat,.card{background:var(--panel);border:1px solid #2c3454;border-radius:18px;padding:17px}.stat strong{display:block;font-size:24px}.stat small{color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 13px}.section-head h2{margin:0;font-size:20px}.muted{color:var(--muted);font-size:13px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.category{background:var(--panel);border:1px solid #303858;border-radius:17px;padding:17px;text-align:left;color:var(--text);cursor:pointer}.category:hover{border-color:var(--purple);transform:translateY(-2px)}.category .emoji{font-size:26px}.category b{display:block;margin:9px 0 4px}.category small{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.challenge{background:linear-gradient(135deg,#263a55,#302452);border:1px solid #46517a;border-radius:18px;padding:20px}.challenge h3{margin:8px 0}.adslot{border:1px dashed #555e7c;border-radius:16px;padding:18px;text-align:center;color:var(--muted);font-size:12px;margin-top:18px}
+.gamebox{max-width:720px;margin:25px auto;background:var(--panel);border:1px solid #343d61;border-radius:22px;padding:22px}.topline{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}.bar{height:7px;background:#303753;border-radius:9px;margin:14px 0 24px;overflow:hidden}.bar div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));width:0}
+.question{font-size:23px;line-height:1.35;margin:12px 0 20px}.answers{display:grid;gap:10px}.answer{background:#242b48;color:var(--text);border:1px solid #3b4568;border-radius:13px;padding:15px;text-align:left;font-size:15px;cursor:pointer}.answer:hover{border-color:var(--purple)}.answer.correct{border-color:var(--green);background:#163c39}.answer.wrong{border-color:#ff7e91;background:#482635}.feedback{min-height:24px;color:var(--muted);margin:13px 0}
+.panel{background:var(--panel);border:1px solid #303858;border-radius:18px;padding:18px}.premium{background:linear-gradient(135deg,#382a55,#28284a);border-color:#7258a5}
+footer{max-width:1050px;margin:auto;padding:22px 18px 40px;color:var(--muted);font-size:12px;text-align:center}
+.hidden{display:none!important}
+@media(max-width:680px){.categories{grid-template-columns:repeat(2,1fr)}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:20px}.grid2{grid-template-columns:1fr}.hero{padding:27px 20px}.hero:after{right:12px;font-size:70px}}
+</style>
+</head>
+<body>
+<header><div class="brand">QUIZ<span>VERSE</span></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="pill">✦ PLAY FREE</div><small style="color:var(--muted);font-size:10px">Created by Lewis Saitabau</small></div></header>
+<main>
+<section id="home">
+ <div class="hero">
+  <div class="eyebrow">YOUR NEXT BRAIN BREAK STARTS HERE</div>
+  <h1>Think fast.<br>Play smart.</h1>
+  <p>Challenge your brain with quick-fire trivia, collect points and see how high you can score. New questions, fresh bragging rights.</p>
+  <button class="button" onclick="startQuiz('General Knowledge')">Start playing →</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="best">0</strong><small>Best score</small></div>
+  <div class="stat"><strong id="played">0</strong><small>Quizzes played</small></div>
+  <div class="stat"><strong id="points">0</strong><small>Total points</small></div>
+ </div>
+ <div class="section-head"><h2>Pick your arena</h2><span class="muted">Choose a category</span></div>
+ <div class="categories">
+  <button class="category" onclick="startQuiz('General Knowledge')"><span class="emoji">🌍</span><b>General Knowledge</b><small>Big world, big facts</small></button>
+  <button class="category" onclick="startQuiz('Science')"><span class="emoji">🧪</span><b>Science</b><small>Curiosity unlocked</small></button>
+  <button class="category" onclick="startQuiz('Sports')"><span class="emoji">🏆</span><b>Sports</b><small>For the competitors</small></button>
+  <button class="category" onclick="startQuiz('Technology')"><span class="emoji">💻</span><b>Technology</b><small>Inside the digital world</small></button>
+  <button class="category" onclick="startQuiz('Entertainment')"><span class="emoji">🎬</span><b>Entertainment</b><small>Movies, music and more</small></button>
+  <button class="category" onclick="startQuiz('Mathematics')"><span class="emoji">➗</span><b>Mathematics</b><small>Give your brain a workout</small></button>
+ </div>
+ <div class="section-head"><h2>Today's challenge</h2><span class="muted">Daily challenge</span></div>
+ <div class="grid2">
+  <div class="challenge"><div class="eyebrow">DAILY BRAIN BOOST</div><h3>Can you get 5 out of 5?</h3><p class="muted">Take a short mixed-topic challenge and try to beat your best.</p><button class="button" onclick="startQuiz('Daily Mix')">Take challenge →</button></div>
+  <div class="panel premium"><div class="eyebrow">QUIZVERSE PLUS</div><h3>More play. More power.</h3><p class="muted">A future premium tier could include extra packs, custom quizzes and an ad-free experience.</p><button class="button secondary" onclick="showPremium()">Explore Plus</button></div>
+ </div>
+ <div class="section-head"><h2>Leaderboard</h2><span class="muted">On this device</span></div>
+ <div class="panel" id="leaderboard"><p class="muted">Play a quiz to put your score on the board.</p></div>
+ <div class="adslot">ADVERTISEMENT SPACE<br><br>Ad network integration can be added after approval. No ads are being served in this demo.</div>
+</section>
+<section id="game" class="hidden">
+ <div class="gamebox">
+  <div class="topline"><span id="categoryLabel">QUIZ</span><span id="counter">1 / 5</span></div>
+  <div class="bar"><div id="progress"></div></div>
+  <div class="muted">Choose the best answer</div><div class="question" id="question"></div>
+  <div class="answers" id="answers"></div><div class="feedback" id="feedback"></div>
+  <button class="button" id="next" onclick="nextQuestion()" disabled>Next question →</button>
+  <button class="button secondary" onclick="goHome()" style="margin-left:8px">Exit</button>
+ </div>
+</section>
+<section id="result" class="hidden">
+ <div class="gamebox" style="text-align:center">
+  <div class="eyebrow">ROUND COMPLETE</div><h1 id="resultTitle">Nice run!</h1><div style="font-size:54px;font-weight:900" id="finalScore">0/5</div>
+  <p class="muted" id="resultText"></p><button class="button" onclick="goHome()">Back to Quizverse</button>
+ </div>
+</section>
+<section id="premiumInfo" class="hidden">
+ <div class="gamebox"><div class="eyebrow">QUIZVERSE PLUS</div><h1>Level up your play.</h1><p class="muted">Premium is a concept preview in this first version, not a live paid subscription.</p><ul class="muted"><li>Bonus quiz collections</li><li>Custom challenge creation</li><li>Ad-free play</li><li>Extra profile themes</li></ul><button class="button" onclick="goHome()">Got it</button></div>
+</section>
+</main>
+<footer>QUIZVERSE · Created by Lewis Saitabau · Scores are stored on this device. No account or payment is required.</footer>
+<script>
+const banks={
+"General Knowledge":[
+["What is the capital city of Japan?",["Seoul","Tokyo","Beijing","Bangkok"],1],
+["Which ocean is the largest?",["Atlantic","Indian","Arctic","Pacific"],3],
+["How many sides does a hexagon have?",["Five","Six","Seven","Eight"],1],
+["Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],1],
+["What is the currency of Kenya?",["Naira","Rand","Kenyan shilling","Birr"],2]],
+"Science":[
+["Which gas do plants absorb during photosynthesis?",["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],1],
+["What is the basic unit of life?",["Atom","Tissue","Cell","Organ"],2],
+["Which organ pumps blood around the body?",["Liver","Lungs","Heart","Kidney"],2],
+["At sea level, water boils at what temperature in Celsius?",["50°C","75°C","100°C","125°C"],2],
+["What force pulls objects toward Earth?",["Friction","Gravity","Magnetism","Pressure"],1]],
+"Sports":[
+["How many players from one football team are on the field at the start of a standard match?",["9","10","11","12"],2],
+["Which sport uses a shuttlecock?",["Tennis","Badminton","Squash","Table tennis"],1],
+["How often are the Summer Olympic Games normally held?",["Every 2 years","Every 3 years","Every 4 years","Every 5 years"],2],
+["In basketball, how many points is a free throw worth?",["1","2","3","4"],0],
+["Which country hosted the 2016 Summer Olympics?",["China","Brazil","Japan","Greece"],1]],
+"Technology":[
+["What does CPU stand for?",["Central Processing Unit","Computer Power Utility","Core Program Upload","Central Print Unit"],0],
+["Which of these is a web browser?",["Linux","Chrome","Bluetooth","Excel"],1],
+["What does Wi-Fi allow devices to do?",["Print without ink","Connect wirelessly to a network","Charge faster","Store more RAM"],1],
+["Which company develops Android?",["Microsoft","Google","Nintendo","Adobe"],1],
+["What does URL identify?",["A web resource address","A computer battery","A file size","A screen resolution"],0]],
+"Entertainment":[
+["Which instrument has black and white keys?",["Violin","Piano","Flute","Drums"],1],
+["Which film series features Hogwarts?",["The Hunger Games","Harry Potter","Star Wars","Toy Story"],1],
+["How many strings does a standard guitar usually have?",["4","5","6","8"],2],
+["Which art form is primarily performed on a stage with actors?",["Theatre","Sculpture","Photography","Painting"],0],
+["A person who writes songs is commonly called a…",["Choreographer","Songwriter","Cinematographer","Architect"],1]],
+"Mathematics":[
+["What is 12 × 8?",["86","92","96","108"],2],
+["What is the square root of 81?",["7","8","9","10"],2],
+["What is 3/4 expressed as a percentage?",["25%","50%","75%","80%"],2],
+["A triangle's interior angles add up to…",["90°","180°","270°","360°"],1],
+["What is the next prime number after 7?",["8","9","10","11"],3]],
+"Daily Mix":[
+["Which planet is closest to the Sun?",["Venus","Mercury","Earth","Mars"],1],
+["What is 15 + 27?",["32","40","42","45"],2],
+["Which animal is a mammal?",["Crocodile","Dolphin","Eagle","Frog"],1],
+["What does HTML mainly describe?",["Web page structure","Phone battery health","Internet speed","Photo filters"],0],
+["How many minutes are in two hours?",["60","90","100","120"],3]]
+};
+let current=[],index=0,score=0,answered=false,categoryNow="";
+function getData(){return JSON.parse(localStorage.getItem("qvData")||'{"best":0,"played":0,"points":0,"scores":[]}')}
+function saveData(d){localStorage.setItem("qvData",JSON.stringify(d))}
+function refresh(){
+ let d=getData();document.getElementById("best").textContent=d.best;document.getElementById("played").textContent=d.played;document.getElementById("points").textContent=d.points;
+ let lb=document.getElementById("leaderboard");
+ lb.innerHTML=d.scores.length?d.scores.slice(0,5).map((s,i)=>`<p style="display:flex;justify-content:space-between"><span>${i+1}. ${s.category}</span><b>${s.score}/5</b></p>`).join(""):'<p class="muted">Play a quiz to put your score on the board.</p>';
+}
+function hideSections(){["home","game","result","premiumInfo"].forEach(id=>document.getElementById(id).classList.add("hidden"))}
+function startQuiz(cat){categoryNow=cat;current=[...banks[cat]];index=0;score=0;hideSections();document.getElementById("game").classList.remove("hidden");renderQuestion()}
+function renderQuestion(){
+ answered=false;let q=current[index];document.getElementById("categoryLabel").textContent=categoryNow.toUpperCase();document.getElementById("counter").textContent=(index+1)+" / "+current.length;document.getElementById("progress").style.width=(index/current.length*100)+"%";document.getElementById("question").textContent=q[0];document.getElementById("feedback").textContent="";document.getElementById("next").disabled=true;document.getElementById("next").textContent=index===current.length-1?"See my result →":"Next question →";
+ let a=document.getElementById("answers");a.innerHTML="";q[1].forEach((label,i)=>{let b=document.createElement("button");b.className="answer";b.textContent=String.fromCharCode(65+i)+". "+label;b.onclick=()=>choose(i,b);a.appendChild(b)})
+}
+function choose(i,btn){if(answered)return;answered=true;let q=current[index],buttons=[...document.querySelectorAll(".answer")];buttons.forEach((b,j)=>{b.disabled=true;if(j===q[2])b.classList.add("correct")});if(i===q[2]){score++;document.getElementById("feedback").textContent="✓ That's right. Keep going!";}else{btn.classList.add("wrong");document.getElementById("feedback").textContent="Not quite. The correct answer is "+q[1][q[2]]+"."}document.getElementById("next").disabled=false}
+function nextQuestion(){if(!answered)return;index++;if(index<current.length)renderQuestion();else finish()}
+function finish(){hideSections();document.getElementById("result").classList.remove("hidden");document.getElementById("finalScore").textContent=score+"/"+current.length;document.getElementById("resultTitle").textContent=score===5?"Perfect round!":score>=3?"Nice run!":"Keep practising!";document.getElementById("resultText").textContent="You earned "+score*10+" points. Try another category and beat your best.";let d=getData();d.played++;d.points+=score*10;d.best=Math.max(d.best,score);d.scores.push({category:categoryNow,score});d.scores.sort((a,b)=>b.score-a.score);d.scores=d.scores.slice(0,5);saveData(d)}
+function goHome(){hideSections();document.getElementById("home").classList.remove("hidden");refresh()}
+function showPremium(){hideSections();document.getElementById("premiumInfo").classList.remove("hidden")}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+refresh();
+</script>
+</body></html>
