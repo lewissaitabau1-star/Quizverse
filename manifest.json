@@ -1,0 +1,9 @@
+{
+  "name": "QUIZVERSE",
+  "short_name": "Quizverse",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0d1020",
+  "theme_color": "#101326",
+  "description": "Think. Play. Compete. A free quiz and entertainment app."
+}
